@@ -131,7 +131,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'users.authentication.CustomJWTAuthentication',
     ],
     # requests are only allowed for authenticated users
     'DEFAULT_PERMISSION_CLASSES': [
@@ -159,6 +159,19 @@ DJOSER = {
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
     'TOKEN_MODEL': None,
 }
+
+# Cookie Settings
+AUTH_COOKIE = 'access'
+AUTH_COOKIE_ACCESS_MAX_AGE = 60 * 5  # 5 Min
+AUTH_COOKIE_REFRESH_MAX_AGE = 60 * 60 * 24  # 1 Day
+AUTH_COOKIE_MAX_AGE = 60 * 60 * 24
+AUTH_COOKIE_SECURE = getenv('AUTH_COOKIE_SECURE', 'True') == 'True'
+AUTH_COOKIE_HTTP_ONLY = True
+AUTH_COOKIE_PATH = '/'
+# Strict = cross-origin disabled,
+# Lax = cross-origin enabled but only safe methods (get, options, head etc.)
+# None = cross-origin enabled and no restrictions
+AUTH_COOKIE_SAMESITE = 'None'
 
 # CORS Settings
 CORS_ALLOWED_ORIGINS = getenv(
