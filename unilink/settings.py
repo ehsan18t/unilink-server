@@ -137,6 +137,16 @@ REST_FRAMEWORK = {
     ]
 }
 
+# Email Settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = getenv('EMAIL_HOST_PASSWORD')
+EMAIL_USE_TLS = True
+DOMAIN = getenv('DOMAIN')
+SITE_NAME = getenv('SITE_NAME')
+
 # Full Docs: https://djoser.readthedocs.io/en/latest/settings.html
 DJOSER = {
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
