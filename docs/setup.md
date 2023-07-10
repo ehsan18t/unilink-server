@@ -86,3 +86,4 @@ In  `settings.py`,
  - [Django Rest API](https://www.django-rest-framework.org/)
  - [Djoser Docs](https://djoser.readthedocs.io/en/latest/getting_started.html)
  - [JWT Docs](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
+ - [Django Docs](https://docs.djangoproject.com/en/)
