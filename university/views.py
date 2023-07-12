@@ -40,3 +40,15 @@ def pending_university_list(request):
     serializer = UniversitySerializer(universities, many=True)
 
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([SiteAdminOnly])
+def approved_university_list(request):
+    # Get the list of approved universities
+    universities = University.objects.filter(is_approved=True)
+
+    # Serialize the universities
+    serializer = UniversitySerializer(universities, many=True)
+
+    return Response(serializer.data)
