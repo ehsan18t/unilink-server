@@ -2,8 +2,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
-from .models import Settings
+from .models import Settings, University
 from .serializers import UniversitySerializer
+from .permissions import SiteAdminOnly
 
 from django.db import transaction
 
@@ -29,4 +30,13 @@ def create_university(request):
     return Response(serializer.errors, status=400)
 
 
+@api_view(['GET'])
+@permission_classes([SiteAdminOnly])
+def pending_university_list(request):
+    # Get the list of approved universities
+    universities = University.objects.filter(is_approved=False)
 
+    # Serialize the universities
+    serializer = UniversitySerializer(universities, many=True)
+
+    return Response(serializer.data)
