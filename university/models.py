@@ -13,6 +13,7 @@ class University(models.Model):
     domain = models.CharField(max_length=300)
     settings = models.ForeignKey(Settings, on_delete=models.CASCADE)
     admin = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    is_approved = models.BooleanField(default=False)
 
     def __str__(self):
         return f'{self.name}'
