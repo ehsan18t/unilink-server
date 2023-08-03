@@ -59,6 +59,8 @@ class UserAccount(AbstractUser, PermissionsMixin):
     last_name = models.CharField(max_length=100)
     username = models.CharField(max_length=20, unique=True)  # Student ID for students
     email = models.EmailField(max_length=100, unique=True)
+    university = models.ForeignKey('university.University', on_delete=models.CASCADE, null=True, blank=True)
+    department = models.ForeignKey('university.Department', on_delete=models.CASCADE, null=True, blank=True)
     profile_picture = models.FileField(upload_to='profile_pictures/', default='profile_pictures/avatar-male.png')
     start_date = models.DateTimeField(auto_now_add=True)
 

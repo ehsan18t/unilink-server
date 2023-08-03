@@ -1,12 +1,7 @@
 from rest_framework import serializers
 from .models import University
 from users.models import UserAccount
-
-
-class UserAccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = UserAccount
-        fields = ['first_name', 'last_name', 'username', 'email']
+from users.serializers import UserAccountSerializer
 
 
 class UniversitySerializer(serializers.ModelSerializer):
