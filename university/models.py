@@ -11,8 +11,8 @@ class Settings(models.Model):
 class University(models.Model):
     name = models.CharField(max_length=100)
     domain = models.CharField(max_length=300)
-    settings = models.ForeignKey(Settings, on_delete=models.CASCADE)
-    admin = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='university_admin')
+    settings = models.ForeignKey(Settings, on_delete=models.DO_NOTHING, null=True, blank=True)
+    admin = models.ForeignKey(UserAccount, on_delete=models.DO_NOTHING, related_name='university_admin')
     is_approved = models.BooleanField(default=False)
 
     def __str__(self):
