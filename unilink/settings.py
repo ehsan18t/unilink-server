@@ -153,6 +153,9 @@ SITE_NAME = getenv('SITE_NAME')
 
 # Full Docs: https://djoser.readthedocs.io/en/latest/settings.html
 DJOSER = {
+    'SERIALIZERS': {
+        'user_create_password_retype': 'users.serializers.CustomUserCreateSerializerRetype',
+    },
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'activation/{uid}/{token}',
