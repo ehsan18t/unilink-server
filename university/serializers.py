@@ -16,3 +16,9 @@ class UniversitySerializer(serializers.ModelSerializer):
         admin = UserAccount.objects.create(**admin_data)
         university = University.objects.create(admin=admin, **validated_data)
         return university
+
+
+class UniversitySerializerPublic(serializers.ModelSerializer):
+    class Meta:
+        model = University
+        fields = ['id', 'name']

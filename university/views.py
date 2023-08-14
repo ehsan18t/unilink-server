@@ -3,7 +3,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from .models import Settings, University
-from .serializers import UniversitySerializer
+from .serializers import UniversitySerializer, UniversitySerializerPublic
 from .permissions import SiteAdminOnly
 
 from django.db import transaction
@@ -50,5 +50,17 @@ def approved_university_list(request):
 
     # Serialize the universities
     serializer = UniversitySerializer(universities, many=True)
+
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def approved_university_list_public(request):
+    # Get the list of approved universities
+    universities = University.objects.filter(is_approved=True)
+
+    # Serialize the universities
+    serializer = UniversitySerializerPublic(universities, many=True)
 
     return Response(serializer.data)
