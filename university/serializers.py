@@ -9,7 +9,7 @@ class UniversitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = University
-        fields = ['name', 'domain', 'admin']
+        fields = ['id', 'name', 'domain', 'admin']
 
     def create(self, validated_data):
         admin_data = validated_data.pop('admin')
