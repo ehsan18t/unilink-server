@@ -1,14 +1,12 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
-
 from .serializers import *
 from users.permissions import *
 from rest_framework.response import Response
 
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([AdminToStudent])
 def forum_list(request):
     # get university id from requested users
     university = request.user.university
@@ -32,7 +30,7 @@ def forum_category_list(request):
 @api_view(['GET'])
 @permission_classes([AdminToStudent])
 def forum_post_list(request):
-    forum_id = request.GET.get('forum_id')
+    forum_id = request.data.get('forum_id')
     forum = Forum.objects.get(id=forum_id)
 
     # Get the list of approved forums
