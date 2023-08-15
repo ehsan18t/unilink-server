@@ -127,10 +127,10 @@ def forum_post_create(request):
     title = request.data.get('title')
 
     # get the forum description
-    description = request.data.get('description')
+    content = request.data.get('content')
 
     # create the forum
-    post = ForumPost.objects.create(forum=forum, title=title, description=description, user=request.user)
+    post = ForumPost.objects.create(forum=forum, title=title, content=content, author=request.user)
 
     serializer = ForumPostSerializer(post, many=False)
     return Response(serializer.data)
