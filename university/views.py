@@ -64,3 +64,33 @@ def approved_university_list_public(request):
     serializer = UniversitySerializerPublic(universities, many=True)
 
     return Response(serializer.data)
+
+
+def change_university_approve_status(request, value):
+    university_id = request.data.get('university_id')
+    university = University.objects.get(id=university_id)
+    university.is_approved = value
+    university.save()
+
+
+@api_view(['POST'])
+@permission_classes([SiteAdminOnly])
+def approve_university(request):
+    change_university_approve_status(request, True)
+
+    return Response({
+        'status': 'success',
+        'message': 'University approved'
+    })
+
+
+@api_view(['POST'])
+@permission_classes([SiteAdminOnly])
+def disapprove_university(request):
+    change_university_approve_status(request, False)
+
+    return Response({
+        'status': 'success',
+        'message': 'University disapproved'
+    })
+
