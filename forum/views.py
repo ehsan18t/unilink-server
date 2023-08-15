@@ -63,6 +63,24 @@ def forum_post_like_list(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([UniversityAdminOnly])
+def inactive_forum_forum_list(request):
+    university = request.user.university
+    forums = Forum.objects.filter(university=university, is_active=False)
+    serializer = ForumSerializer(forums, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([UniversityAdminOnly])
+def inactive_forum_category_list(request):
+    university = request.user.university
+    forums = ForumCategory.objects.filter(university=university, is_active=False)
+    serializer = ForumCategorySerializer(forums, many=True)
+    return Response(serializer.data)
+
+
 @api_view(['POST'])
 @permission_classes([AdminToFaculty])
 def forum_create(request):
