@@ -38,3 +38,27 @@ def forum_post_list(request):
     serializer = ForumPostSerializer(forums, many=True)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
+def forum_post_comment_list(request):
+    post_id = request.data.get('post_id')
+    post = ForumPost.objects.get(id=post_id)
+
+    # Get the list of approved forums
+    forums = ForumPostComment.objects.filter(post=post)
+    serializer = ForumPostCommentSerializer(forums, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
+def forum_post_like_list(request):
+    post_id = request.data.get('post_id')
+    post = ForumPost.objects.get(id=post_id)
+
+    # Get the list of approved forums
+    forums = ForumPostLike.objects.filter(post=post)
+    serializer = ForumPostLikeSerializer(forums, many=True)
+    return Response(serializer.data)
+
