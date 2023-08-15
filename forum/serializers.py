@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from .models import *
 
 
@@ -36,4 +37,3 @@ class ForumPostLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = ForumPostLike
         fields = '__all__'
-
