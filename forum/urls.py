@@ -7,4 +7,5 @@ urlpatterns = [
     path('forum-post-list/', forum_post_list, name='forum-post-list'),
     path('forum-post-comment-list/', forum_post_comment_list, name='forum-post-comment-list'),
     path('forum-post-like-list/', forum_post_like_list, name='forum-post-like-list'),
+    path('create/', forum_create, name='forum-create'),
 ]

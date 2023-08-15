@@ -62,3 +62,29 @@ def forum_post_like_list(request):
     serializer = ForumPostLikeSerializer(forums, many=True)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([AdminToFaculty])
+def forum_create(request):
+    # get university id from requested users
+    university = request.user.university
+
+    # get the forum category id
+    category_id = request.data.get('category_id')
+    category = ForumCategory.objects.get(id=category_id)
+
+    # get the forum name
+    title = request.data.get('title')
+
+    # get the forum description
+    description = request.data.get('description')
+
+    # create the forum
+    forum = Forum.objects.create(university=university, category=category, title=title, description=description)
+
+    # add forum admin
+    ForumAdmin.objects.create(user=request.user, forum=forum)
+
+    serializer = ForumSerializer(forum, many=False)
+    return Response(serializer.data)
+
