@@ -177,3 +177,25 @@ def forum_post_comment_create(request):
     serializer = ForumPostCommentSerializer(comment, many=False)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([AdminToStudent])
+def forum_post_like_create(request):
+    # get university id from requested users
+    university = request.user.university
+
+    # get the forum id
+    post_id = request.data.get('post_id')
+    post = ForumPost.objects.get(id=post_id, is_active=True)
+
+    if university and post.forum.university != university:
+        return Response({'error': 'Forum does not belong to this university or inactive'})
+
+    if ForumPostLike.objects.filter(forum_post=post, user=request.user).exists():
+        return Response({'error': 'You have already liked this post'})
+
+    # create the forum
+    like = ForumPostLike.objects.create(forum_post=post, user=request.user)
+
+    serializer = ForumPostLikeSerializer(like, many=False)
+    return Response(serializer.data)
