@@ -73,6 +73,9 @@ def forum_create(request):
     category_id = request.data.get('category_id')
     category = ForumCategory.objects.get(id=category_id)
 
+    if category.university != university:
+        return Response({'error': 'Category does not belong to this university'})
+
     # get the forum name
     title = request.data.get('title')
 
