@@ -10,4 +10,5 @@ urlpatterns = [
     path('create/', forum_create, name='forum-create'),
     path('create-category/', forum_category_create, name='forum-category-create'),
     path('create-post/', forum_post_create, name='forum-post-create'),
+    path('create-post-comment/', forum_post_comment_create, name='forum-post-comment-create'),
 ]
