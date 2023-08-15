@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from .models import Settings, University
 from .serializers import UniversitySerializer, UniversitySerializerPublic
-from .permissions import SiteAdminOnly
+from users.permissions import SiteAdminOnly
 
 from django.db import transaction
 
