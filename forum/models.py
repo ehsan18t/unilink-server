@@ -23,6 +23,7 @@ class ForumAdmin(models.Model):
 class ForumCategory(models.Model):
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
+    university = models.ForeignKey('university.University', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
