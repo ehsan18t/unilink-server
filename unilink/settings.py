@@ -155,6 +155,7 @@ SITE_NAME = getenv('SITE_NAME')
 DJOSER = {
     'SERIALIZERS': {
         'user_create_password_retype': 'users.serializers.CustomUserCreateSerializerRetype',
+        'current_user': 'users.serializers.UserAccountSerializer',
     },
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
