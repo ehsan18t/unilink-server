@@ -28,10 +28,22 @@ class FacultyToStudent(BasePermission):
 class StudentOnly(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type == 2
+        return request.user.is_authenticated and request.user.user_type == 1
+
+
+class FacultyOnly(BasePermission):
+    def has_permission(self, request, view):
+        # Check if the user has the required type
+        return request.user.is_authenticated and request.user.user_type == 3
 
 
 class AdminToStudent(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
         return request.user.is_authenticated and request.user.user_type > -1
+
+
+class AdminToFaculty(BasePermission):
+    def has_permission(self, request, view):
+        # Check if the user has the required type
+        return request.user.is_authenticated and request.user.user_type < 2
