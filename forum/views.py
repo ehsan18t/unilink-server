@@ -71,10 +71,10 @@ def forum_create(request):
 
     # get the forum category id
     category_id = request.data.get('category_id')
-    category = ForumCategory.objects.get(id=category_id)
+    category = ForumCategory.objects.get(id=category_id, is_active=True)
 
-    if category.university != university:
-        return Response({'error': 'Category does not belong to this university'})
+    if category and category.university != university:
+        return Response({'error': 'Category does not belong to this university or inactive'})
 
     # get the forum name
     title = request.data.get('title')
@@ -100,10 +100,10 @@ def forum_post_create(request):
 
     # get the forum id
     forum_id = request.data.get('forum_id')
-    forum = Forum.objects.get(id=forum_id)
+    forum = Forum.objects.get(id=forum_id, is_active=True)
 
-    if forum.university != university:
-        return Response({'error': 'Forum does not belong to this university'})
+    if university and forum.university != university:
+        return Response({'error': 'Forum does not belong to this university or inactive'})
 
     # get the forum name
     title = request.data.get('title')
