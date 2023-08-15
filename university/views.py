@@ -94,3 +94,32 @@ def disapprove_university(request):
         'message': 'University disapproved'
     })
 
+
+def change_university_ban_status(request, value):
+    university_id = request.data.get('university_id')
+    university = University.objects.get(id=university_id)
+    university.is_banned = value
+    university.save()
+
+
+@api_view(['POST'])
+@permission_classes([SiteAdminOnly])
+def ban_university(request):
+    change_university_ban_status(request, True)
+
+    return Response({
+        'status': 'success',
+        'message': 'University banned'
+    })
+
+
+@api_view(['POST'])
+@permission_classes([SiteAdminOnly])
+def unban_university(request):
+    change_university_ban_status(request, False)
+
+    return Response({
+        'status': 'success',
+        'message': 'University unbanned'
+    })
+
