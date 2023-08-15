@@ -91,3 +91,29 @@ def forum_create(request):
     serializer = ForumSerializer(forum, many=False)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([AdminToStudent])
+def forum_post_create(request):
+    # get university id from requested users
+    university = request.user.university
+
+    # get the forum id
+    forum_id = request.data.get('forum_id')
+    forum = Forum.objects.get(id=forum_id)
+
+    if forum.university != university:
+        return Response({'error': 'Forum does not belong to this university'})
+
+    # get the forum name
+    title = request.data.get('title')
+
+    # get the forum description
+    description = request.data.get('description')
+
+    # create the forum
+    post = ForumPost.objects.create(forum=forum, title=title, description=description, user=request.user)
+
+    serializer = ForumPostSerializer(post, many=False)
+    return Response(serializer.data)
+
