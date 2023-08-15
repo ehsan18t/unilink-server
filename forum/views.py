@@ -213,3 +213,18 @@ def approve_forum(request):
     serializer = ForumSerializer(forum, many=False)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([AdminToStudent])
+def approve_forum_category(request):
+    category_id = request.data.get('category_id')
+    category = ForumCategory.objects.get(id=category_id)
+
+    if not category or category.university != request.user.university:
+        return Response({'error': 'Category does not belong to this university or not found'})
+
+    category.is_active = True
+    category.save()
+
+    serializer = ForumCategorySerializer(category, many=False)
+    return Response(serializer.data)

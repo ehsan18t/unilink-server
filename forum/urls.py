@@ -13,4 +13,5 @@ urlpatterns = [
     path('create-post-comment/', forum_post_comment_create, name='forum-post-comment-create'),
     path('create-post-like/', forum_post_like_create, name='forum-post-like-create'),
     path('approve/', approve_forum, name='forum-approve'),
+    path('approve-category/', approve_forum_category, name='forum-category-approve'),
 ]
