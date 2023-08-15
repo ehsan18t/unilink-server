@@ -1,3 +1,9 @@
 from django.contrib import admin
+from .models import *
 
-# Register your models here.
+admin.site.register(Forum)
+admin.site.register(ForumPost)
+admin.site.register(ForumPostComment)
+admin.site.register(ForumAdmin)
+admin.site.register(ForumCategory)
+admin.site.register(ForumPostLike)
