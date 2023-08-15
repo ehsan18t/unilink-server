@@ -135,3 +135,22 @@ def forum_post_create(request):
     serializer = ForumPostSerializer(post, many=False)
     return Response(serializer.data)
 
+
+@api_view(['POST'])
+@permission_classes([AdminToFaculty])
+def forum_category_create(request):
+    # get university id from requested users
+    university = request.user.university
+
+    # get the forum name
+    title = request.data.get('title')
+
+    # get the forum description
+    description = request.data.get('description')
+
+    # create the forum
+    category = ForumCategory.objects.create(university=university, title=title, description=description)
+
+    serializer = ForumCategorySerializer(category, many=False)
+    return Response(serializer.data)
+
