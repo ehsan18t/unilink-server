@@ -199,3 +199,17 @@ def forum_post_like_create(request):
 
     serializer = ForumPostLikeSerializer(like, many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AdminToStudent])
+def approve_forum(request):
+    forum_id = request.data.get('forum_id')
+    forum = Forum.objects.get(id=forum_id)
+
+    forum.is_active = True
+    forum.save()
+
+    serializer = ForumSerializer(forum, many=False)
+    return Response(serializer.data)
+
