@@ -142,3 +142,4 @@ uploads/*
 */migrations/*
 .env.local
 !sampleDB/*
+!*/migrations/__init__.py
