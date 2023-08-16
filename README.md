@@ -4,6 +4,7 @@
  - [ ] Create `venv` by running `python -m venv venv`
  - [ ] Activate `venv` by running `venv\Scripts\activate.bat`
  - [ ] Install required packages: `pip install -r requirements.txt`
+ - [ ] Create admin account: `python manage.py createsuperuser`
  - [ ] Run the server: `python manage.py runserver`
  - [ ] Open [http://localhost:8000](http://localhost:8000) in your browser
 
