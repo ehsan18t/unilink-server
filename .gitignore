@@ -139,5 +139,5 @@ GitHub.sublime-settings
 # Custom
 node_modules/
 uploads/*
-*/migrations/*
 .env.local
+!sampleDB/*
