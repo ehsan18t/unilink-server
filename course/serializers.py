@@ -14,9 +14,3 @@ class SectionSerializer(serializers.ModelSerializer):
         model = Section
         fields = '__all__'
 
-
-class CourseSectionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Course
-        fields = ['name', 'code', 'type', 'sections']
-

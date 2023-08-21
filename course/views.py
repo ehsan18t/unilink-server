@@ -9,7 +9,11 @@ from users.permissions import SiteAdminOnly
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_courses(request):
-    courses = Course.objects.all()
+    try:
+        courses = Course.objects.all()
+    except Course.DoesNotExist:
+        return Response(status=404)
+
     serializer = CourseSerializer(courses, many=True)
     return Response(serializer.data)
 
@@ -29,15 +33,6 @@ def get_section(request):
 def get_course_sections(request):
     course_id = request.GET.get('course_id')
 
-    course = Course.objects.filter(id=course_id)
+    course = Course.objects.filter(id=course_id).first()
     sections = Section.objects.filter(course=course)
-
-    # Course with sections
-    course_sections = {
-        'course': course,
-        'sections': sections
-    }
-
-    serializer = CourseSectionSerializer(course_sections)
-    return Response(serializer.data)
-
+    return Response(SectionSerializer(sections, many=True).data)
