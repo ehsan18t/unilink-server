@@ -19,7 +19,7 @@ class Section(models.Model):
     faculty = models.ManyToManyField('users.UserAccount', related_name='sections_faculty')
 
     def __str__(self):
-        return {self.name}
+        return f'{self.trimester} {self.name}'
 
 
 class Course(models.Model):
