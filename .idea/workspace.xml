@@ -6,6 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="ef6faf05-e5bd-4fdc-af2c-96730b8206db" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/department/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/department/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/department/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/department/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/department/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/department/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,32 +33,31 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: -1
+  &quot;associatedIndex&quot;: 3
 }</component>
   <component name="ProjectId" id="2SNrzb5rA8xzx8IfzrRb8GgR0Dd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/Ehsan/Music/unilink-server",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Ehsan/PycharmProjects/unilink-server&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Color Scheme Font&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Ehsan\PycharmProjects\unilink-server\users" />
@@ -254,6 +256,14 @@
       <workItem from="1692036195759" duration="9259000" />
       <workItem from="1692086600684" duration="21282000" />
       <workItem from="1692192982216" duration="3628000" />
+      <workItem from="1692344394376" duration="1972000" />
+      <workItem from="1692527902098" duration="387000" />
+      <workItem from="1692528302169" duration="430000" />
+      <workItem from="1692528746540" duration="636000" />
+      <workItem from="1692529398452" duration="90000" />
+      <workItem from="1692529501300" duration="641000" />
+      <workItem from="1692530159162" duration="6339000" />
+      <workItem from="1692614960608" duration="3001000" />
     </task>
     <servers />
   </component>
