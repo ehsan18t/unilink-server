@@ -1,40 +1,41 @@
 from rest_framework.permissions import BasePermission
+from .models import UserType
 
 
 class SiteAdminOnly(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type == 0
+        return request.user.is_authenticated and request.user.user_type == UserType.SU.value
 
 
 class UniversityAdminOnly(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type == 1
+        return request.user.is_authenticated and request.user.user_type == UserType.ADMIN.value
 
 
 class FacultyRepresentative(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type == 3 or request.user.user_type == 4
+        return request.user.is_authenticated and request.user.user_type == UserType.FACULTY or request.user.user_type == UserType.REPRESENTATIVE
 
 
 class FacultyToStudent(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type > 2
+        return request.user.is_authenticated and request.user.user_type > UserType.MOD.value
 
 
 class StudentOnly(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type == 1
+        return request.user.is_authenticated and request.user.user_type == UserType.STUDENT.value
 
 
 class FacultyOnly(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type == 3
+        return request.user.is_authenticated and request.user.user_type == UserType.FACULTY.value
 
 
 class AdminToStudent(BasePermission):
@@ -46,4 +47,4 @@ class AdminToStudent(BasePermission):
 class AdminToFaculty(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
-        return request.user.is_authenticated and request.user.user_type < 2
+        return request.user.is_authenticated and request.user.user_type < UserType.REPRESENTATIVE.value
