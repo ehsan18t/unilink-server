@@ -25,8 +25,12 @@ def get_courses(request):
 def get_section(request):
     section_id = request.data.get('section_id')
 
-    section = Section.objects.filter(id=section_id)
-    serializer = SectionSerializer(section, many=True)
+    try:
+        section = Section.objects.get(id=section_id)
+    except Section.DoesNotExist:
+        return Response(status=404)
+
+    serializer = SectionSerializer(section)
     return Response(serializer.data)
 
 
