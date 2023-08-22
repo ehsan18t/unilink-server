@@ -159,7 +159,7 @@ DJOSER = {
         'user_create_password_retype': 'users.serializers.CustomUserCreateSerializerRetype',
         'current_user': 'users.serializers.UserAccountSerializer',
     },
-    'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
+    'PASSWORD_RESET_CONFIRM_URL': 'nl/password-reset/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'ACTIVATION_URL': 'nl/activation/{uid}/{token}',
     'USER_CREATE_PASSWORD_RETYPE': True,
