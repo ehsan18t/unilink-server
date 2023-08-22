@@ -9,7 +9,7 @@ from django.db import transaction
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
+@permission_classes([UniversityAdminOnly])
 def create_department(request):
     user = request.user
     if not user.is_authenticated:
@@ -30,7 +30,7 @@ def create_department(request):
 
 
 @api_view(['GET'])
-@permission_classes([SiteAdminOnly])
+@permission_classes([UniversityAdminOnly])
 def department_list(request):
     # Get the list of departments
     departments = Department.objects.filter(university=request.user.university)
@@ -61,7 +61,7 @@ def department_list_public(request):
 
 
 @api_view(['POST'])
-@permission_classes([SiteAdminOnly])
+@permission_classes([UniversityAdminOnly])
 def delete_department(request):
     department_id = request.data.get('department_id')
     try:
