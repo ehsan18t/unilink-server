@@ -1,7 +1,8 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
-
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import Settings, University
 from .serializers import UniversitySerializer, UniversitySerializerPublic
 from users.permissions import SiteAdminOnly
@@ -69,7 +70,23 @@ def approved_university_list_public(request):
 def change_university_approve_status(request, value):
     university_id = request.data.get('university_id')
     university = University.objects.get(id=university_id)
+    previous_approval_status = university.is_approved
     university.is_approved = value
+
+    if university.admin and university.admin.email:  # Make sure admin and their email exist
+        subject = 'University Approval Status Change'
+        message = f"Dear {university.admin.get_full_name()},\n\n" \
+                  f"The approval status of your university has been changed.\n" \
+                  f"Previous Status: {'Approved' if previous_approval_status else 'Not Approved'}\n" \
+                  f"New Status: {'Approved' if value else 'Not Approved'}\n\n" \
+                  f"Thank you!\n" \
+                  f"UniLink Team"
+
+        from_email = settings.DEFAULT_FROM_EMAIL
+        recipient_list = [university.admin.email]
+
+        send_mail(subject, message, from_email, recipient_list, fail_silently=True)
+
     university.save()
 
 
