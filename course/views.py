@@ -2,6 +2,8 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from department.models import Department
+from university.models import University
 from users.permissions import *
 from .serializers import *
 
@@ -97,3 +99,25 @@ def delete_section(request):
 
     section.delete()
     return Response(status=200)
+
+
+@api_view(['POST'])
+@permission_classes([UniversityAdminToMod])
+def create_course(request):
+    name = request.data.get('name')
+    code = request.data.get('code')
+    credit = request.data.get('credit')
+    course_type = request.data.get('type')
+    department_id = request.data.get('department_id')
+
+    try:
+        university = request.user.university
+        department = Department.objects.get(id=department_id)
+    except University.DoesNotExist:
+        return Response(status=404)
+
+    if university is None or department is None:
+        return Response(status=404)
+
+    course = Course.objects.create(name=name, code=code, credit=credit, type=course_type, department=department, university=university)
+    return Response(CourseSerializer(course).data)
