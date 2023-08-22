@@ -81,3 +81,19 @@ def update_section(request):
     section.save()
     return Response(SectionSerializer(section).data)
 
+
+@api_view(['POST'])
+@permission_classes([AdminToStudent])
+def delete_section(request):
+    section_id = request.data.get('section_id')
+
+    try:
+        section = Section.objects.filter(id=section_id).first()
+    except Section.DoesNotExist:
+        return Response(status=404)
+
+    if section is None:
+        return Response(status=404)
+
+    section.delete()
+    return Response(status=200)
