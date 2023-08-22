@@ -7,7 +7,7 @@ from .serializers import *
 
 
 @api_view(['GET'])
-@permission_classes([AdminToStudent])
+@permission_classes([UniversityAdminToMod])
 def get_courses(request):
     try:
         courses = Course.objects.filter(university=request.user.university)
@@ -19,7 +19,7 @@ def get_courses(request):
 
 
 @api_view(['GET'])
-@permission_classes([AdminToStudent])
+@permission_classes([UniversityAdminToMod])
 def get_section(request):
     section_id = request.GET.get('section_id')
 
@@ -29,7 +29,7 @@ def get_section(request):
 
 
 @api_view(['GET'])
-@permission_classes([AdminToStudent])
+@permission_classes([UniversityAdminToMod])
 def get_course_sections(request):
     course_id = request.GET.get('course_id')
 
@@ -43,7 +43,7 @@ def get_course_sections(request):
 
 
 @api_view(['POST'])
-@permission_classes([AdminToStudent])
+@permission_classes([UniversityAdminToMod])
 def create_section(request):
     name = request.data.get('name')
     trimester = request.data.get('trimester')
@@ -62,7 +62,7 @@ def create_section(request):
 
 
 @api_view(['POST'])
-@permission_classes([AdminToStudent])
+@permission_classes([UniversityAdminToMod])
 def update_section(request):
     section_id = request.data.get('section_id')
     name = request.data.get('name')
@@ -83,7 +83,7 @@ def update_section(request):
 
 
 @api_view(['POST'])
-@permission_classes([AdminToStudent])
+@permission_classes([UniversityAdminToMod])
 def delete_section(request):
     section_id = request.data.get('section_id')
 
