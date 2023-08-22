@@ -23,7 +23,7 @@ def get_courses(request):
 @api_view(['GET'])
 @permission_classes([UniversityAdminToMod])
 def get_section(request):
-    section_id = request.GET.get('section_id')
+    section_id = request.data.get('section_id')
 
     section = Section.objects.filter(id=section_id)
     serializer = SectionSerializer(section, many=True)
@@ -33,7 +33,8 @@ def get_section(request):
 @api_view(['GET'])
 @permission_classes([UniversityAdminToMod])
 def get_course_sections(request):
-    course_id = request.GET.get('course_id')
+    course_id = request.data.get('course_id')
+    print(course_id)
 
     try:
         course = Course.objects.get(id=course_id)
