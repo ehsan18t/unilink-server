@@ -1,5 +1,4 @@
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from department.models import Department
@@ -38,13 +37,12 @@ def get_section(request):
 @permission_classes([UniversityAdminToMod])
 def get_course_sections(request):
     course_id = request.data.get('course_id')
-    print(course_id)
 
     try:
         course = Course.objects.get(id=course_id)
     except Course.DoesNotExist:
         return Response(status=404)
-    print(course)
+
     sections = Section.objects.filter(course=course)
     return Response(SectionSerializer(sections, many=True).data)
 
@@ -126,3 +124,20 @@ def create_course(request):
 
     course = Course.objects.create(name=name, code=code, credit=credit, type=course_type, department=department, university=university)
     return Response(CourseSerializer(course).data)
+
+
+@api_view(['POST'])
+@permission_classes([UniversityAdminToMod])
+def delete_course(request):
+    course_id = request.data.get('course_id')
+
+    try:
+        course = Course.objects.get(id=course_id)
+    except Course.DoesNotExist:
+        return Response(status=404)
+
+    if course is None:
+        return Response(status=404)
+
+    course.delete()
+    return Response(status=200)
