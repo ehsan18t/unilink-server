@@ -14,6 +14,12 @@ class UniversityAdminOnly(BasePermission):
         return request.user.is_authenticated and request.user.user_type == UserType.ADMIN.value
 
 
+class UniversityAdminToMod(BasePermission):
+    def has_permission(self, request, view):
+        # Check if the user has the required type
+        return request.user.is_authenticated and UserType.ADMIN.value <= request.user.user_type >= UserType.MOD.value
+
+
 class FacultyRepresentative(BasePermission):
     def has_permission(self, request, view):
         # Check if the user has the required type
