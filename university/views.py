@@ -73,7 +73,7 @@ def change_university_approve_status(request, value):
     university = University.objects.get(id=university_id)
     previous_approval_status = university.is_approved
     university.is_approved = value
-    university.admin.university = UserType.ADMIN
+    university.admin.university = UserType.ADMIN.value
     university.admin.is_active = value
 
     if university.admin and university.admin.email:  # Make sure admin and their email exist
