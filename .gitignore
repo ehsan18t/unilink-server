@@ -143,3 +143,4 @@ uploads/*
 .env.local
 !sampleDB/*
 !*/migrations/__init__.py
+!media/profile_pictures/avatar-male.png
