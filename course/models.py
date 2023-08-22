@@ -3,12 +3,12 @@ from enum import Enum
 
 
 class CourseType(Enum):
-    THEORY = '1'
-    LAB = '2'
+    THEORY = 1
+    LAB = 2
 
     @classmethod
     def choices(cls):
-        return [(key.value, key.value) for key in cls]
+        return [(key.value, key.name) for key in cls]
 
 
 class Course(models.Model):
