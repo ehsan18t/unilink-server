@@ -7,6 +7,7 @@ from .models import Settings, University
 from .serializers import UniversitySerializer, UniversitySerializerPublic
 from users.permissions import SiteAdminOnly
 
+from users.models import UserType
 from django.db import transaction
 
 
@@ -72,6 +73,8 @@ def change_university_approve_status(request, value):
     university = University.objects.get(id=university_id)
     previous_approval_status = university.is_approved
     university.is_approved = value
+    university.admin.university = UserType.ADMIN
+    university.admin.is_active = value
 
     if university.admin and university.admin.email:  # Make sure admin and their email exist
         subject = 'University Approval Status Change'
