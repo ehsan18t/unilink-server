@@ -36,3 +36,24 @@ def get_course_sections(request):
     course = Course.objects.filter(id=course_id, university=request.user.university).first()
     sections = Section.objects.filter(course=course)
     return Response(SectionSerializer(sections, many=True).data)
+
+
+@api_view(['POST'])
+@permission_classes([AdminToStudent])
+def create_section(request):
+    name = request.data.get('name')
+    trimester = request.data.get('trimester')
+    course_id = request.data.get('course_id')
+    print(name, trimester, course_id)
+
+    try:
+        course = Course.objects.filter(id=course_id).first()
+        print(course)
+    except Course.DoesNotExist:
+        return Response(status=404)
+
+    if course is None:
+        return Response(status=404)
+
+    section = Section.objects.create(name=name, trimester=trimester, course=course)
+    return Response(SectionSerializer(section).data)
