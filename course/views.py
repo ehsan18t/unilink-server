@@ -1,3 +1,4 @@
+from decimal import Decimal
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 
@@ -140,4 +141,7 @@ def delete_course(request):
         return Response(status=404)
 
     course.delete()
-    return Response(status=200)
+    return Response({
+        'status': 'success',
+        'message': 'Course Removed'
+    })
