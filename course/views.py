@@ -103,7 +103,10 @@ def delete_section(request):
         return Response(status=404)
 
     section.delete()
-    return Response(status=200)
+    return Response({
+        'status': 'success',
+        'message': 'Section Removed'
+    })
 
 
 @api_view(['POST'])
