@@ -22,7 +22,9 @@ def get_courses(request):
 
 @api_view(['GET'])
 @permission_classes([UniversityAdminToMod])
-def get_section(request, section_id):
+def get_section(request):
+    section_id = request.data.get('section_id')
+
     try:
         section = Section.objects.get(id=section_id)
     except Section.DoesNotExist:
@@ -34,7 +36,9 @@ def get_section(request, section_id):
 
 @api_view(['GET'])
 @permission_classes([UniversityAdminToMod])
-def get_course_sections(request, course_id):
+def get_course_sections(request):
+    course_id = request.data.get('course_id')
+
     try:
         course = Course.objects.get(id=course_id)
     except Course.DoesNotExist:
