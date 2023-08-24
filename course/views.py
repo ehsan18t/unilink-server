@@ -4,6 +4,7 @@ from rest_framework.response import Response
 
 from department.models import Department
 from university.models import University
+from users.models import UserAccount
 from users.permissions import *
 from .serializers import *
 
@@ -145,3 +146,28 @@ def delete_course(request):
         'status': 'success',
         'message': 'Course Removed'
     })
+
+
+@api_view(['POST'])
+@permission_classes([UniversityAdminToMod])
+def add_faculty_to_section(request):
+    section_id = request.data.get('section_id')
+    faulty_id = request.data.get('faculty_id')
+
+    try:
+        section = Section.objects.get(id=section_id)
+        faulty = UserAccount.objects.get(id=faulty_id)
+    except Section.DoesNotExist or UserAccount.DoesNotExist or UserAccount.user_type != UserType.FACULTY:
+        return Response(status=404)
+
+    if section is None or faulty is None:
+        return Response(status=404)
+
+    section.faulty.add(faulty)
+    section.save()
+
+    return Response({
+        'status': 'success',
+        'message': 'Faulty Added'
+    })
+
