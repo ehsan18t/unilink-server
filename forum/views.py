@@ -18,6 +18,16 @@ def forum_list(request):
 
 @api_view(['GET'])
 @permission_classes([AdminToStudent])
+def get_forum_by_id(request):
+    forum_id = request.GET.get('forum_id')
+    forum = Forum.objects.get(id=forum_id)
+
+    serializer = ForumSerializer(forum, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
 def forum_category_list(request):
     # Get the list of approved forums
     university = request.user.university

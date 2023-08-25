@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
+from os import getenv
 
 from forum.models import Forum
 from users.models import UserAccount
@@ -126,5 +127,5 @@ def get_user_by_id(request):
     user_id = request.GET.get('user_id')
     user = UserAccount.objects.get(id=user_id)
     serializer = UserAccountSerializer(user, many=False)
-    
+
     return Response(serializer.data)
