@@ -15,7 +15,7 @@ class Chat(models.Model):
     type = models.IntegerField(choices=ChatType.choices())
     created_at = models.DateTimeField(auto_now_add=True)
     participants = models.ManyToManyField('users.UserAccount', related_name='participants')
-    section = models.ForeignKey('courses.Section', on_delete=models.CASCADE, related_name='chat_section', null=True)
+    section = models.ForeignKey('course.Section', on_delete=models.CASCADE, related_name='chat_section', null=True)
     university = models.ForeignKey('university.University', on_delete=models.CASCADE, related_name='chat_university')
 
     def __str__(self):
