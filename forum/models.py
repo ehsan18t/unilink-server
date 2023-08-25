@@ -27,7 +27,7 @@ class ForumCategory(models.Model):
     university = models.ForeignKey('university.University', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
 
 class Forum(models.Model):
@@ -37,7 +37,7 @@ class Forum(models.Model):
     category = models.ForeignKey('forum.ForumCategory', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
 
 class ForumPost(models.Model):
