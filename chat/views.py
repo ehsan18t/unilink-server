@@ -2,6 +2,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from course.models import Course, Section
 from users.models import UserAccount
 from .serializers import *
 from users.permissions import *
@@ -59,8 +60,9 @@ def create_private_chat(request):
 @permission_classes([AllowAny])
 def create_classroom_chat(request):
     user = request.user
-    chat_name = request.data.get('chat_name')
-    chat = Chat.objects.create(name=chat_name, type=ChatType.CLASSROOM.value, university=user.university)
+    section_id = request.data.get('section_id')
+    section = Section.objects.get(id=section_id)
+    chat = Chat.objects.create(type=ChatType.CLASSROOM.value, university=user.university, section=section)
     chat.participants.add(user)
     chat.save()
 
