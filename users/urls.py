@@ -5,7 +5,8 @@ from .views import (
     CustomTokenObtainPairView,
     CustomTokenRefreshView,
     CustomTokenVerifyView,
-    LogoutView
+    LogoutView,
+    get_user_by_id
 )
 
 urlpatterns = [
@@ -18,4 +19,5 @@ urlpatterns = [
     path('jwt/refresh/', CustomTokenRefreshView.as_view()),
     path('jwt/verify/', CustomTokenVerifyView.as_view()),
     path('logout/', LogoutView.as_view()),
+    path('user/', get_user_by_id, name='get-user-by-id'),
 ]

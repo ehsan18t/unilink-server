@@ -1,6 +1,7 @@
 from django.conf import settings
 from djoser.social.views import ProviderAuthView
 from rest_framework import status
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import (
@@ -8,6 +9,11 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
+
+from forum.models import Forum
+from users.models import UserAccount
+from users.permissions import AdminToStudent
+from users.serializers import UserAccountSerializer
 
 
 class CustomProviderAuthView(ProviderAuthView):
@@ -112,3 +118,13 @@ class LogoutView(APIView):
         response.delete_cookie('refresh')
 
         return response
+
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
+def get_user_by_id(request):
+    user_id = request.GET.get('user_id')
+    user = UserAccount.objects.get(id=user_id)
+    serializer = UserAccountSerializer(user, many=False)
+    
+    return Response(serializer.data)
