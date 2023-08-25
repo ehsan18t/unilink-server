@@ -1,3 +1,69 @@
-from django.shortcuts import render
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
-# Create your views here.
+from users.models import UserAccount
+from .serializers import *
+from users.permissions import *
+from .models import *
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_chat_list(request):
+    user = request.user
+    chat_list = Chat.objects.filter(participants=user)
+    serializer = ChatSerializer(chat_list, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_chat(request):
+    user = request.user
+    chat_id = request.GET.get('chat_id')
+    chat = Chat.objects.get(id=chat_id)
+
+    if chat.university != user.university:
+        return Response({
+            'status': 'error',
+            'message': 'Not Found'
+        }, status=404)
+
+    serializer = ChatSerializer(chat)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def create_private_chat(request):
+    user = request.user
+    participant_id = request.data.get('participant_id')
+    participant = UserAccount.objects.get(id=participant_id)
+
+    if participant.university != user.university:
+        return Response({
+            'status': 'error',
+            'message': 'Not Found'
+        }, status=404)
+
+    chat = Chat.objects.create(type=ChatType.PRIVATE.value, university=user.university)
+    chat.participants.add(user, participant)
+    chat.save()
+
+    serializer = ChatSerializer(chat)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def create_classroom_chat(request):
+    user = request.user
+    chat_name = request.data.get('chat_name')
+    chat = Chat.objects.create(name=chat_name, type=ChatType.CLASSROOM.value, university=user.university)
+    chat.participants.add(user)
+    chat.save()
+
+    serializer = ChatSerializer(chat)
+    return Response(serializer.data)
+
