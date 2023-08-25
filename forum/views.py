@@ -228,3 +228,22 @@ def approve_forum_category(request):
 
     serializer = ForumCategorySerializer(category, many=False)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
+def get_user_forum_post(request):
+    user = request.user
+    posts = ForumPost.objects.filter(author=user)
+    serializer = ForumPostSerializer(posts, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
+def get_posts_for_user(request):
+    user = request.user
+    all_forum_list = Forum.objects.filter(university=user.university)
+    posts = ForumPost.objects.filter(forum__in=all_forum_list)
+    serializer = ForumPostSerializer(posts, many=True)
+    return Response(serializer.data)
