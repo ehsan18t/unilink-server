@@ -52,12 +52,12 @@ def forum_post_list(request):
 @api_view(['GET'])
 @permission_classes([AdminToStudent])
 def forum_post_comment_list(request):
-    post_id = request.data.get('post_id')
+    post_id = request.GET.get('post_id')
     post = ForumPost.objects.get(id=post_id)
 
     # Get the list of approved forums
-    forums = ForumPostComment.objects.filter(post=post)
-    serializer = ForumPostCommentSerializer(forums, many=True)
+    comments = ForumPostComment.objects.filter(forum_post=post)
+    serializer = ForumPostCommentSerializer(comments, many=True)
     return Response(serializer.data)
 
 
