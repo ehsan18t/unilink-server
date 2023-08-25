@@ -30,7 +30,7 @@ def forum_category_list(request):
 @api_view(['GET'])
 @permission_classes([AdminToStudent])
 def forum_post_list(request):
-    forum_id = request.data.get('forum_id')
+    forum_id = request.GET.get('forum_id')
     forum = Forum.objects.get(id=forum_id)
 
     # Get the list of approved forums
