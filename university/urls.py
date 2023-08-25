@@ -10,4 +10,5 @@ urlpatterns = [
     path('disapprove/', disapprove_university, name='disapprove-university'),
     path('ban/', ban_university, name='ban-university'),
     path('unban/', unban_university, name='unban-university'),
+    path('faculty-list/', get_faculty_list, name='get-faculty-list'),
 ]

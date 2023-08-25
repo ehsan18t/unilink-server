@@ -3,11 +3,13 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from django.core.mail import send_mail
 from django.conf import settings
+
+from users.serializers import UserAccountSerializer
 from .models import Settings, University
 from .serializers import UniversitySerializer, UniversitySerializerPublic
-from users.permissions import SiteAdminOnly
+from users.permissions import *
 
-from users.models import UserType
+from users.models import UserType, UserAccount
 from django.db import transaction
 
 
@@ -142,4 +144,14 @@ def unban_university(request):
         'status': 'success',
         'message': 'University unbanned'
     })
+
+
+@api_view(['GET'])
+@permission_classes([UniversityAdminToMod])
+def get_faculty_list(request):
+    university = request.user.university
+    faculty_list = UserAccount.objects.filter(university=university, user_type=UserType.FACULTY.value)
+
+    return Response(UserAccountSerializer(faculty_list, many=True).data)
+
 
