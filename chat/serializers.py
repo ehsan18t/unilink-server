@@ -20,13 +20,3 @@ class MessageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         message = Message.objects.create(**validated_data)
         return message
-
-
-class ParticipantSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Participant
-        fields = ['__all__']
-
-    def create(self, validated_data):
-        participant = Participant.objects.create(**validated_data)
-        return participant
