@@ -61,6 +61,17 @@ def forum_post_comment_list(request):
     return Response(serializer.data)
 
 
+
+@api_view(['GET'])
+@permission_classes([AdminToStudent])
+def get_post_by_id(request):
+    post_id = request.GET.get('post_id')
+    post = ForumPost.objects.get(id=post_id)
+
+    serializer = ForumPostSerializer(post, many=False)
+    return Response(serializer.data)
+
+
 @api_view(['GET'])
 @permission_classes([AdminToStudent])
 def forum_post_like_list(request):
