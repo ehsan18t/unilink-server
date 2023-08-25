@@ -174,3 +174,52 @@ def add_faculty_to_section(request):
         'message': 'Faulty Added'
     })
 
+
+@api_view(['POST'])
+@permission_classes([UniversityAdminToMod, FacultyOnly])
+def remove_student_from_section(request):
+    section_id = request.data.get('section_id')
+    student_id = request.data.get('student_id')
+
+    try:
+        section = Section.objects.get(id=section_id)
+        student = UserAccount.objects.get(id=student_id)
+    except Section.DoesNotExist or UserAccount.DoesNotExist or UserAccount.user_type != UserType.STUDENT:
+        return Response(status=404)
+
+    if section is None or student is None:
+        return Response(status=404)
+
+    section.students.remove(student)
+    section.save()
+
+    return Response({
+        'status': 'success',
+        'message': 'Student Removed'
+    })
+
+
+@api_view(['POST'])
+@permission_classes([UniversityAdminToMod])
+def remove_user_from_section(request):
+    section_id = request.data.get('section_id')
+    user_id = request.data.get('user_id')
+
+    try:
+        section = Section.objects.get(id=section_id)
+        user = UserAccount.objects.get(id=user_id)
+    except Section.DoesNotExist or UserAccount.DoesNotExist:
+        return Response(status=404)
+
+    if section is None or user is None:
+        return Response(status=404)
+
+    section.students.remove(user)
+    section.faulty.remove(user)
+    section.save()
+
+    return Response({
+        'status': 'success',
+        'message': 'User Removed'
+    })
+
