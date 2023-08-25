@@ -255,5 +255,9 @@ def get_posts_for_user(request):
     user = request.user
     all_forum_list = Forum.objects.filter(university=user.university)
     posts = ForumPost.objects.filter(forum__in=all_forum_list)
+
+    # sort by time (last created on will be first)
+    posts = posts.order_by('-created_at')
+
     serializer = ForumPostSerializer(posts, many=True)
     return Response(serializer.data)
