@@ -12,11 +12,10 @@ class ChatType(Enum):
 
 
 class Chat(models.Model):
-    name = models.CharField(max_length=200, blank=True, null=True)
     type = models.IntegerField(choices=ChatType.choices())
     created_at = models.DateTimeField(auto_now_add=True)
     participants = models.ManyToManyField('users.UserAccount', related_name='participants')
-    course = models.ForeignKey('course.Course', on_delete=models.CASCADE, related_name='chat_course', blank=True, null=True)
+    section = models.ForeignKey('courses.Section', on_delete=models.CASCADE, related_name='chat_section', null=True)
     university = models.ForeignKey('university.University', on_delete=models.CASCADE, related_name='chat_university')
 
     def __str__(self):
