@@ -77,3 +77,20 @@ def delete_department(request):
         'message': 'University approved'
     })
 
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def get_department_by_id(request):
+    university_id = request.GET.get('university_id')
+    try:
+        university = University.objects.get(id=university_id)
+    except University.DoesNotExist:
+        return Response({
+            'status': 'error',
+            'message': 'University not found'
+        }, status=404)
+
+    departments = Department.objects.filter(university=university)
+
+    serializer = DepartmentSerializer(departments, many=True)
+    return Response(serializer.data)
