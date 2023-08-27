@@ -1,19 +1,22 @@
 from djoser.serializers import UserCreateSerializer
 from rest_framework import serializers
+
+from department.models import Department
 from .models import *
 from university.models import University
 
 
 class CustomUserCreateSerializer(UserCreateSerializer):
     university = serializers.PrimaryKeyRelatedField(queryset=University.objects.all(), required=True)
+    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all(), required=True)
 
     class Meta(UserCreateSerializer.Meta):
-        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'university')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'university', 'department')
 
 
 class CustomUserCreateSerializerRetype(CustomUserCreateSerializer):
     class Meta(CustomUserCreateSerializer.Meta):
-        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'university')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'university', 'department')
 
 
 class UserAccountSerializer(serializers.ModelSerializer):
