@@ -71,7 +71,10 @@ def get_post_by_id(request):
     post_id = request.GET.get('post_id')
     post = ForumPost.objects.get(id=post_id)
 
-    serializer = ForumPostSerializer(post, many=False)
+    post.comment_count = ForumPostComment.objects.filter(forum_post=post).count()
+    post.upvote_count = ForumPostLike.objects.filter(forum_post=post).count()
+
+    serializer = ForumPostWithCountSerializer(post, many=False)
     return Response(serializer.data)
 
 
