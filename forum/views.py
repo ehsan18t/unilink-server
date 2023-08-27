@@ -44,8 +44,11 @@ def forum_post_list(request):
     forum = Forum.objects.get(id=forum_id)
 
     # Get the list of approved forums
-    forums = ForumPost.objects.filter(forum=forum)
-    serializer = ForumPostSerializer(forums, many=True)
+    post_list = ForumPost.objects.filter(forum=forum)
+    for post in post_list:
+        post.comment_count = ForumPostComment.objects.filter(forum_post=post).count()
+        post.upvote_count = ForumPostLike.objects.filter(forum_post=post).count()
+    serializer = ForumPostWithCountSerializer(post_list, many=True)
     return Response(serializer.data)
 
 
@@ -270,5 +273,9 @@ def get_posts_for_user(request):
     # sort by time (last created on will be first)
     posts = posts.order_by('-created_at')
 
-    serializer = ForumPostSerializer(posts, many=True)
+    for post in posts:
+        post.comment_count = ForumPostComment.objects.filter(forum_post=post).count()
+        post.upvote_count = ForumPostLike.objects.filter(forum_post=post).count()
+    serializer = ForumPostWithCountSerializer(posts, many=True)
+
     return Response(serializer.data)

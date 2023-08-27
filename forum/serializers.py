@@ -27,6 +27,15 @@ class ForumPostSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ForumPostWithCountSerializer(serializers.ModelSerializer):
+    comment_count = serializers.IntegerField()
+    upvote_count = serializers.IntegerField()
+
+    class Meta:
+        model = ForumPost
+        fields = ('id', 'title', 'content', 'author', 'forum', 'created_at', 'updated_at', 'comment_count', 'upvote_count', 'is_active')
+
+
 class ForumPostCommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ForumPostComment
