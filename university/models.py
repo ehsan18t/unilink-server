@@ -13,6 +13,7 @@ class University(models.Model):
     domain = models.CharField(max_length=300)
     settings = models.ForeignKey(Settings, on_delete=models.DO_NOTHING, null=True, blank=True)
     admin = models.ForeignKey(UserAccount, on_delete=models.DO_NOTHING, related_name='university_admin')
+    doc_url = models.CharField(max_length=300)
     is_approved = models.BooleanField(default=False)
     is_banned = models.BooleanField(default=False)
 
