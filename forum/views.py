@@ -45,9 +45,15 @@ def forum_post_list(request):
 
     # Get the list of approved forums
     post_list = ForumPost.objects.filter(forum=forum)
+
+    # sort by time (last created on will be first)
+    post_list = post_list.order_by('-created_at')
+
     for post in post_list:
         post.comment_count = ForumPostComment.objects.filter(forum_post=post).count()
         post.upvote_count = ForumPostLike.objects.filter(forum_post=post).count()
+
+
     serializer = ForumPostWithCountSerializer(post_list, many=True)
     return Response(serializer.data)
 
