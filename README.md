@@ -1,17 +1,42 @@
 # Setup Guide
- - [ ] Clone this repository: `git clone https://github.com/ehsan18t/unilink-server.git`
+ - [ ] Clone this repository: 
+    ```
+    git clone https://github.com/ehsan18t/unilink-server.git
+    ```
  - [ ] Install [Python >= 3.10](https://www.python.org/downloads/release/python-3100/)
  - [ ] Open project folder in terminal
- - [ ] Create `venv` by running `python -m venv venv`
- - [ ] Activate `venv` by running `venv\Scripts\activate.bat`
- - [ ] Install required packages: `pip install -r requirements.txt`
+ - [ ] Create `venv` by running 
+    ```
+    python -m venv venv
+    ```
+ - [ ] Activate `venv` by running 
+    ```
+    venv\Scripts\activate.bat
+    ```
+ - [ ] Install required packages: 
+    ```
+    pip install -r requirements.txt
+    ```
  - [ ] Migrate database: 
-   - `python manage.py makemigrations`
-   - `python manage.py migrate`
- - [ ] Create admin account: `python manage.py createsuperuser`
- - [ ] Run the server: `python manage.py runserver`
+    ```
+    python manage.py makemigrations
+    ```
+    ```
+    python manage.py migrate
+    ```
+ - [ ] Create admin account: 
+    ```
+    python manage.py createsuperuser
+    ```
+ - [ ] Run the server: 
+    ```
+    python manage.py runserver
+    ```
  - [ ] Open [http://localhost:8000](http://localhost:8000) in your browser
 
+
+# Full Documentations
+ - [Documentations](https://github.com/ehsan18t/unilink-docs)
 
 # API Documentation
  - [Frontend Repo](https://github.com/ehsan18t/unilink)
