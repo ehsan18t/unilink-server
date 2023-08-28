@@ -228,14 +228,16 @@ def toggle_post_vote(request):
         ForumPostLike.objects.filter(forum_post=post, user=request.user).delete()
 
         return Response(
-            {'status': 'success', 'message': 'You have unliked the post'}
+            {'status': 'success', 'type': 'unvote', 'message': 'You have unliked the post'}
         )
 
     # create the forum
     like = ForumPostLike.objects.create(forum_post=post, user=request.user)
 
     serializer = ForumPostLikeSerializer(like, many=False)
-    return Response(serializer.data)
+    return Response(
+        {'status': 'success', 'type': 'vote', 'message': 'You have liked the post', 'data': serializer.data}
+    )
 
 
 @api_view(['POST'])
