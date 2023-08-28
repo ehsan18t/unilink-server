@@ -213,7 +213,7 @@ def forum_post_comment_create(request):
 
 @api_view(['POST'])
 @permission_classes([AdminToStudent])
-def forum_post_like_create(request):
+def toggle_post_vote(request):
     # get university id from requested users
     university = request.user.university
 
@@ -225,7 +225,11 @@ def forum_post_like_create(request):
         return Response({'error': 'Forum does not belong to this university or inactive'})
 
     if ForumPostLike.objects.filter(forum_post=post, user=request.user).exists():
-        return Response({'error': 'You have already liked this post'})
+        ForumPostLike.objects.filter(forum_post=post, user=request.user).delete()
+
+        return Response(
+            {'status': 'success', 'message': 'You have unliked the post'}
+        )
 
     # create the forum
     like = ForumPostLike.objects.create(forum_post=post, user=request.user)
