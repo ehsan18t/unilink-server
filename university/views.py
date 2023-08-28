@@ -96,6 +96,18 @@ def change_university_approve_status(request, value):
 
 
 @api_view(['POST'])
+@permission_classes([UniversityAdminToMod])
+def remove_faculty(request):
+    faculty_id = request.data.get('faculty_id')
+    faculty = UserAccount.objects.get(id=faculty_id)
+    faculty.delete()
+
+    return Response({
+        'status': 'success',
+        'message': 'Faculty deleted'
+    })
+
+@api_view(['POST'])
 @permission_classes([SiteAdminOnly])
 def approve_university(request):
     change_university_approve_status(request, True)

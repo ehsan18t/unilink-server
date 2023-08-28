@@ -12,4 +12,5 @@ urlpatterns = [
     path('unban/', unban_university, name='unban-university'),
     path('faculty-list/', get_faculty_list, name='get-faculty-list'),
     path('add-faculty/', add_faculty, name='add-faculty'),
+    path('remove-faculty/', remove_faculty, name='remove-faculty'),
 ]
