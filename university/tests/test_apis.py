@@ -30,7 +30,9 @@ class TestCreateUni(APITestCase):
                 "email": "mdashik560@outlook.com"
             }
         }
-
+    
+    def test_create_university_url(self):
+        self.assertEquals(resolve(self.url).func, create_university)
        
     def test_create_uni_with_no_data(self):
         response = self.client.post(self.url)
