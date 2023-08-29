@@ -30,5 +30,8 @@ class TestCreateUni(APITestCase):
         }
 
        
+    def test_create_uni_with_no_data(self):
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 400)
     
     
