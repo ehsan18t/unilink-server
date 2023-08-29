@@ -44,6 +44,12 @@ class TestCreateUni(APITestCase):
 
 class TestApproveUni(APITestCase):
 
+    def setUp(self):
+        self.url = reverse('approved-university-list-public')
+
     def test_approved_university_list_public_url(self):
-        url = reverse('approved-university-list-public')        
-        self.assertEquals(resolve(url).func, approved_university_list_public)
+        self.assertEquals(resolve(self.url).func, approved_university_list_public)
+
+    def test_approve_university_list_public(self):
+        response = self.client.get(self.url);
+        self.assertEqual(response.status_code, 200)
