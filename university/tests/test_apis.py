@@ -19,6 +19,8 @@ class TestCreateUni(APITestCase):
         self.url = reverse('create-university')
 
         self.create_uni_data = {
+            "doc_url" : "Test url",
+            "code": 1,
             "name": "Test Uni",
             "domain": "uni",
             "admin": {
@@ -34,4 +36,7 @@ class TestCreateUni(APITestCase):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 400)
     
-    
+    def test_create_uni_with_data(self):
+        response = self.client.post(self.url,self.create_uni_data,format="json")     
+        pdb.set_trace()   
+        self.assertEqual(response.status_code, 200)
