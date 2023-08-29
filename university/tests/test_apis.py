@@ -13,3 +13,22 @@ from users.models import UserAccount
 from users.permissions import SiteAdminOnly
 from users.models import UserType
 import pdb
+
+class TestCreateUni(APITestCase):
+    def setUp(self):
+        self.url = reverse('create-university')
+
+        self.create_uni_data = {
+            "name": "Test Uni",
+            "domain": "uni",
+            "admin": {
+                "first_name": "mr",
+                "last_name": "x",
+                "username": "uniadmin",
+                "email": "mdashik560@outlook.com"
+            }
+        }
+
+       
+    
+    
