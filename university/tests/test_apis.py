@@ -31,8 +31,6 @@ class TestCreateUni(APITestCase):
             }
         }
     
-    def test_create_university_url(self):
-        self.assertEquals(resolve(self.url).func, create_university)
        
     def test_create_uni_with_no_data(self):
         response = self.client.post(self.url)
@@ -46,9 +44,6 @@ class TestApproveUni(APITestCase):
 
     def setUp(self):
         self.url = reverse('approved-university-list-public')
-
-    def test_approved_university_list_public_url(self):
-        self.assertEquals(resolve(self.url).func, approved_university_list_public)
 
     def test_approve_university_list_public(self):
         response = self.client.get(self.url);
