@@ -8,10 +8,9 @@ from university.models import University
 
 class CustomUserCreateSerializer(UserCreateSerializer):
     university = serializers.PrimaryKeyRelatedField(queryset=University.objects.all(), required=True)
-    department = serializers.PrimaryKeyRelatedField(queryset=Department.objects.all(), required=True)
 
     class Meta(UserCreateSerializer.Meta):
-        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'university', 'department')
+        fields = ('first_name', 'last_name', 'username', 'email', 'password', 'university')
 
 
 class CustomUserCreateSerializerRetype(CustomUserCreateSerializer):
