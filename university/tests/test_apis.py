@@ -4,7 +4,7 @@ from unittest.mock import patch
 from django.urls import reverse, resolve
 from rest_framework.authtoken.models import Token
 from django.test import SimpleTestCase
-from university.views import create_university
+from university.views import *
 
 from university.models import University 
 from university.serializers import UniversitySerializer
@@ -40,5 +40,10 @@ class TestCreateUni(APITestCase):
     
     def test_create_uni_with_data(self):
         response = self.client.post(self.url,self.create_uni_data,format="json")     
-        pdb.set_trace()   
         self.assertEqual(response.status_code, 200)
+
+class TestApproveUni(APITestCase):
+
+    def test_approved_university_list_public_url(self):
+        url = reverse('approved-university-list-public')        
+        self.assertEquals(resolve(url).func, approved_university_list_public)
