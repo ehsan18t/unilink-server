@@ -155,23 +155,23 @@ def delete_course(request):
 @permission_classes([UniversityAdminToMod])
 def add_faculty_to_section(request):
     section_id = request.data.get('section_id')
-    faulty_id = request.data.get('faculty_id')
+    faculty_id = request.data.get('faculty_id')
 
     try:
         section = Section.objects.get(id=section_id)
-        faulty = UserAccount.objects.get(id=faulty_id)
+        faculty = UserAccount.objects.get(id=faculty_id)
     except Section.DoesNotExist or UserAccount.DoesNotExist or UserAccount.user_type != UserType.FACULTY:
         return Response(status=404)
 
-    if section is None or faulty is None:
+    if section is None or faculty is None:
         return Response(status=404)
 
-    section.faulty.add(faulty)
+    section.faculty.add(faculty)
     section.save()
 
     return Response({
         'status': 'success',
-        'message': 'Faulty Added'
+        'message': 'Faculty Added'
     })
 
 
