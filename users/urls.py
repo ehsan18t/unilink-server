@@ -6,7 +6,7 @@ from .views import (
     CustomTokenRefreshView,
     CustomTokenVerifyView,
     LogoutView,
-    get_user_by_id
+    get_user_by_id, get_user_encrypted
 )
 
 urlpatterns = [
@@ -20,4 +20,5 @@ urlpatterns = [
     path('jwt/verify/', CustomTokenVerifyView.as_view()),
     path('logout/', LogoutView.as_view()),
     path('user/', get_user_by_id, name='get-user-by-id'),
+    path('user-encrypted/', get_user_encrypted, name='get-user-encrypted'),
 ]
